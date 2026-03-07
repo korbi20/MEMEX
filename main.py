@@ -7,7 +7,7 @@ FILENAME = "notizen.json"
 BLAU = "\033[0;38;5;110m"
 ROT = "\033[5;38;5;160m"
 ENDE = "\033[0m"
-Version = "1.4"
+Version = "1.5"
 
 def get_sort_key(titel, notizen_dict):
     zeit_str = notizen_dict[titel].get("aktiv", "01.01.2000 00:00")
@@ -16,7 +16,9 @@ def get_sort_key(titel, notizen_dict):
     except:
         return datetime(2000, 1, 1)
 
-if os.path.exists(FILENAME):
+erster_start = not os.path.exists(FILENAME)
+
+if not erster_start:
     try:
         with open(FILENAME, "r") as f:
             notizen = json.load(f)
@@ -26,6 +28,14 @@ if os.path.exists(FILENAME):
         notizen = {}
 else:
     notizen = {}
+    
+if erster_start:
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("\n     Willkommen bei MEMEX 👋")
+    print("     Hier kannst du schnell Notizen anlegen, lesen und verwalten.")
+    print("     Tipp: Mit [+] erstellst du direkt deine erste Notiz.")
+    input(f"\n {BLAU}                       (Enter zum Starten){ENDE}")
+
 
 while True:
     os.system('cls' if os.name == 'nt' else 'clear')
