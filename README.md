@@ -65,14 +65,6 @@ Beispiel:
 }
 ```
 
-## Projektstruktur
-
-```text
-MEMEX/
-├── main.py
-├── LICENSE.md
-└── README.md
-```
 
 ## Hinweise
 
