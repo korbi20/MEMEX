@@ -77,7 +77,3 @@ MEMEX/
 
 - Die Anwendung speichert automatisch nach jedem Erstellen, Bearbeiten oder Löschen.
 - Wenn `notizen.json` noch nicht existiert, wird sie beim ersten Speichern angelegt.
-
-## Lizenz
-
-Aktuell ist keine Lizenz hinterlegt. Falls du das Projekt veröffentlichen willst, empfiehlt sich eine Datei wie `LICENSE` (z. B. MIT).
