@@ -70,6 +70,7 @@ Beispiel:
 ```text
 MEMEX/
 ├── main.py
+├── LICENSE.md
 └── README.md
 ```
 
