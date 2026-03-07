@@ -1,6 +1,6 @@
 import json
 import os
-import time
+import time # Neu importiert für kleine Pausen
 
 FILENAME = "notizen.json"
 
@@ -12,8 +12,18 @@ else:
 
 while True:
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(f"MEMEX v1.0 | Digitales Text-Archiv")
-    print("---------------------------------")
+
+    anzahl = len(notizen)
+    
+    if anzahl == 0:
+        header_text = "Digitales Text-Archiv"
+    else:
+        wort = "Notiz" if anzahl == 1 else "Notizen"
+        header_text = f"Du hast {anzahl} {wort} offen"
+
+    print(f"MEMEX v1.0.1 | {header_text}")
+    print("-" * 35)
+    
     if not notizen:
         print("(Keine Notizen vorhanden)")
     else:
