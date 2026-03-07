@@ -10,6 +10,22 @@ Mit **MEMEX** kannst du Notizen direkt in der Konsole erstellen, bearbeiten, les
 - Öffentlich auf GitHub als Showcase und Inspiration.
 - Kein Produkt-Support oder SLA — Nutzung auf eigene Verantwortung.
 
+## Voraussetzungen
+
+- Python **3.8+** (empfohlen)
+- Keine externen Abhängigkeiten (nur Standardbibliothek)
+
+## Installation / Start
+
+1. Repository klonen oder Dateien herunterladen.
+2. Ins Projektverzeichnis wechseln.
+3. Anwendung starten:
+
+```bash
+python3 main.py
+```
+
+> Unter Windows ggf. `python main.py` verwenden.
 
 ## Bedienung
 
