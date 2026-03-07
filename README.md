@@ -4,32 +4,12 @@ Ein kleines, terminalbasiertes Notiz-Archiv in Python.
 
 Mit **MEMEX** kannst du Notizen direkt in der Konsole erstellen, bearbeiten, lesen und löschen. Alle Daten werden lokal in einer JSON-Datei gespeichert.
 
-## Features
+## Zweck / Status
 
-- 📒 Notizen lokal speichern (`notizen.json`)
-- ➕ Neue Notizen anlegen
-- ✏️ Bestehende Notizen zeilenweise bearbeiten
-- 🔎 Notizen nach Nummer auswählen und lesen
-- 🗑️ Notizen löschen
-- 📏 Byte-Anzeige pro Notizinhalt
-- 🔤 Sortierte Anzeige aller Notiz-Titel
+- Persönliches Terminal-Projekt zum schnellen Notieren von Ideen.
+- Öffentlich auf GitHub als Showcase und Inspiration.
+- Kein Produkt-Support oder SLA — Nutzung auf eigene Verantwortung.
 
-## Voraussetzungen
-
-- Python **3.8+** (empfohlen)
-- Keine externen Abhängigkeiten (nur Standardbibliothek)
-
-## Installation / Start
-
-1. Repository klonen oder Dateien herunterladen.
-2. Ins Projektverzeichnis wechseln.
-3. Anwendung starten:
-
-```bash
-python3 main.py
-```
-
-> Unter Windows ggf. `python main.py` verwenden.
 
 ## Bedienung
 
@@ -65,11 +45,11 @@ Beispiel:
 }
 ```
 
-
 ## Hinweise
 
 - Die Anwendung speichert automatisch nach jedem Erstellen, Bearbeiten oder Löschen.
 - Wenn `notizen.json` noch nicht existiert, wird sie beim ersten Speichern angelegt.
+- Notizen bleiben lokal im Projektordner (`notizen.json`).
 
 ## Lizenz
 
