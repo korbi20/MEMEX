@@ -3,12 +3,19 @@ import os
 import time
 
 FILENAME = "notizen.json"
-GELB = "\033[93m"
+BLAU = "\033[0;38;5;110m"
+ROT = "\033[5;38;5;160m"
 ENDE = "\033[0m"
+Version = "1.3"
 
 if os.path.exists(FILENAME):
-    with open(FILENAME, "r") as f:
-        notizen = json.load(f)
+    try:
+        with open(FILENAME, "r") as f:
+            notizen = json.load(f)
+    except json.JSONDecodeError:
+        print(f"{ROT}Warnung: {FILENAME} war beschädigt und wurde zurückgesetzt.{ENDE}")
+        time.sleep(2)
+        notizen = {}
 else:
     notizen = {}
 
@@ -22,8 +29,9 @@ while True:
         wort = "Notiz" if anzahl == 1 else "Notizen"
         header_text = f"{anzahl} {wort} geladen"
 
-    print(f"MEMEX v1.1.2 | {header_text}")
-    print("-" * 35)
+    top_line = f"MEMEX v{Version} | {header_text}"
+    print(top_line)
+    print("-" * len(top_line))
     
     if not notizen:
         print("\n(Keine Notizen vorhanden)")
@@ -32,7 +40,7 @@ while True:
         for i, titel in enumerate(sorted(notizen.keys()), 1):
             print(f"{i}. {titel}")
 
-    print(f"\n{GELB}[+] Neu/Edit  [#] Lesen  [-] Löschen  [x] Exit{ENDE}")
+    print(f"\n{BLAU}[+] Neu/Edit  [#] Lesen  [-] Löschen  [x] Exit{ENDE}")
     auswahl = input("> ").strip().lower()
 
     if auswahl == "x":
@@ -80,7 +88,7 @@ while True:
         if titel:
             neue_zeilen = []
             if titel in notizen:
-                print(f"\n{GELB}Edit: {titel}{ENDE}")
+                print(f"\n{BLAU}Edit: {titel}{ENDE}")
                 print("(Enter = Zeile behalten | Text = Zeile ändern)")
                 alte_zeilen = notizen[titel].split("\n")
                 for i, zeile in enumerate(alte_zeilen, 1):
