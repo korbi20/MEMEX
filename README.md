@@ -77,3 +77,13 @@ MEMEX/
 
 - Die Anwendung speichert automatisch nach jedem Erstellen, Bearbeiten oder Löschen.
 - Wenn `notizen.json` noch nicht existiert, wird sie beim ersten Speichern angelegt.
+
+## Lizenz
+
+Dieses Repository steht unter der **MIT License**.
+
+- Das Projekt ist ein persönliches Showcase-/Inspiration-Projekt.
+- Nutzung, Forks und Anpassungen sind unter den MIT-Bedingungen erlaubt.
+- Die Software wird "as is" ohne Gewährleistung bereitgestellt.
+
+Siehe [`LICENSE`](./LICENSE).
