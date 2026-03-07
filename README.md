@@ -86,4 +86,4 @@ Dieses Repository steht unter der **MIT License**.
 - Nutzung, Forks und Anpassungen sind unter den MIT-Bedingungen erlaubt.
 - Die Software wird "as is" ohne Gewährleistung bereitgestellt.
 
-Siehe [`LICENSE`](./LICENSE).
+Siehe [`LICENSE`](./LICENSE.md).
