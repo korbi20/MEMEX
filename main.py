@@ -10,7 +10,7 @@ ROT = "\033[5;38;5;160m"
 FETT = "\033[1m"
 MEMEX = BLAU + FETT
 ENDE = "\033[0m"
-VERSION = "1.8"
+VERSION = "1.9"
 
 
 def clear_screen():
@@ -86,7 +86,7 @@ def list_notes(notizen):
     print("-" * len(top_line))
 
     if not notizen:
-        print("\n(Keine Notizen vorhanden)")
+        print("\n         (Keine Notizen vorhanden)")
         return
 
     heute = datetime.now().strftime("%d.%m.%Y")
@@ -108,7 +108,7 @@ def get_title_by_number(notizen, nr):
     index = int(nr) - 1
     titel_liste = sort_titles(notizen)
     if not titel_liste:
-        return None, "Keine Notizen vorhanden."
+        return None, "\n        Keine Notizen vorhanden."
 
     if 0 <= index < len(titel_liste):
         return titel_liste[index], None
@@ -166,9 +166,9 @@ def search_notes(notizen):
 
     treffer = [titel for titel in sort_titles(notizen) if suchtext.lower() in titel.lower()]
 
-    print(f"\nTreffer für '{suchtext}':")
+    print(f"\n{BLAU}Treffer für '{ENDE}{suchtext}{BLAU}':{ENDE}")
     if not treffer:
-        print("(Keine passenden Notizen)")
+        print("\n         (Keine passenden Notizen)")
     else:
         for i, titel in enumerate(treffer, 1):
             print(f"{i}. {titel}")
@@ -219,30 +219,31 @@ def create_or_edit_note(notizen, filename):
     time.sleep(0.8)
 
 
-def show_help(help_filename):
-    eintraege = load_help_entries(help_filename)
+def show_help():
+    
+    os.system("cls" if os.name == "nt" else "clear")
+    status = f"Hilfecenter"
+    top_line = f"{MEMEX}MEMEX v{VERSION}{ENDE} | {status}"
+    print(top_line)
+    print("-" * len(top_line))
+    
+    print(f"\n  {FETT}Hilfe / Befehle{ENDE}")
+    print(  "-" * 40)
+    print(f"    {BLAU}[+]{ENDE}  Neue Notiz erstellen oder bestehende bearbeiten")
+    print(f"    {BLAU}[#]{ENDE}  Notiz über ihre Nummer lesen")
+    print(f"    {BLAU}[s]{ENDE}  Notizen nach Titel durchsuchen")
+    print(f"    {BLAU}[-]{ENDE}  Notiz über ihre Nummer löschen (mit Bestätigung)")
+    print(f"    {BLAU}[?]{ENDE}  Diese Hilfe anzeigen")
+    print(f"    {BLAU}[x]{ENDE}  Programm beenden")
 
-    print(f"\n{FETT}Hilfe / Befehle{ENDE}")
-    print("-" * 40)
-    print(f"{BLAU}[+]{ENDE}  Neue Notiz erstellen oder bestehende bearbeiten")
-    print(f"{BLAU}[#]{ENDE}  Notiz über ihre Nummer lesen")
-    print(f"{BLAU}[s]{ENDE}  Notizen nach Titel durchsuchen")
-    print(f"{BLAU}[-]{ENDE}  Notiz über ihre Nummer löschen (mit Bestätigung)")
-    print(f"{BLAU}[?]{ENDE}  Diese Hilfe anzeigen")
-    print(f"{BLAU}[x]{ENDE}  Programm beenden")
+    print(f"\n  {FETT}Vorgehensweise:{ENDE}")
+    print(  "-" * 40)
+    print(f"    {BLAU}1.{ENDE}  Funktion auswählen (Bsp. '{BLAU}+{ENDE}')")
+    print(f"    {BLAU}2.{ENDE}  mit {BLAU}Enter{ENDE} bestätigen")
+    print(f"    {BLAU}3.{ENDE}  folge den {BLAU}Anweisungen{ENDE}")
+    print(f"\n    {BLAU}//{ENDE}  mit {BLAU}Enter{ENDE} immer bestätigen, außer es wird anders {BLAU}angegeben{ENDE}")
 
-    if eintraege:
-        print(f"\n{FETT}Anleitungen aus {help_filename}:{ENDE}")
-        for titel, data in eintraege.items():
-            text = data.get("text", "") if isinstance(data, dict) else ""
-            print(f"\n• {titel}")
-            if text:
-                for zeile in text.splitlines():
-                    print(f"  {zeile}")
-    else:
-        print("\n(Tipp: Lege eine help.json an, um eigene Hilfetexte mitzuliefern.)")
-
-    input(f"\n{BLAU}(Enter zum Zurückkehren){ENDE}")
+    input(f"\n                      {BLAU}(Enter zum Zurückkehren){ENDE}")
 
 
 def main():
@@ -266,7 +267,7 @@ def main():
         elif auswahl == "+":
             create_or_edit_note(notizen, FILENAME)
         elif auswahl == "?":
-            show_help(HELP_FILENAME)
+            show_help()
         elif auswahl == "":
             continue
         else:
