@@ -4,6 +4,7 @@ import time
 from datetime import datetime
 
 FILENAME = "notizen.json"
+HELP_FILENAME = "help.json"
 BLAU = "\033[0;38;5;110m"
 ROT = "\033[5;38;5;160m"
 FETT = "\033[1m"
@@ -45,6 +46,19 @@ def load_notes(filename):
 def save_notes(filename, notizen):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(notizen, f, indent=4, ensure_ascii=False)
+
+
+def load_help_entries(filename):
+    if not os.path.exists(filename):
+        return None
+
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return None
+
+    return data if isinstance(data, dict) else None
 
 
 def show_welcome_if_first_start(erster_start):
@@ -205,6 +219,32 @@ def create_or_edit_note(notizen, filename):
     time.sleep(0.8)
 
 
+def show_help(help_filename):
+    eintraege = load_help_entries(help_filename)
+
+    print(f"\n{FETT}Hilfe / Befehle{ENDE}")
+    print("-" * 40)
+    print(f"{BLAU}[+]{ENDE}  Neue Notiz erstellen oder bestehende bearbeiten")
+    print(f"{BLAU}[#]{ENDE}  Notiz über ihre Nummer lesen")
+    print(f"{BLAU}[s]{ENDE}  Notizen nach Titel durchsuchen")
+    print(f"{BLAU}[-]{ENDE}  Notiz über ihre Nummer löschen (mit Bestätigung)")
+    print(f"{BLAU}[?]{ENDE}  Diese Hilfe anzeigen")
+    print(f"{BLAU}[x]{ENDE}  Programm beenden")
+
+    if eintraege:
+        print(f"\n{FETT}Anleitungen aus {help_filename}:{ENDE}")
+        for titel, data in eintraege.items():
+            text = data.get("text", "") if isinstance(data, dict) else ""
+            print(f"\n• {titel}")
+            if text:
+                for zeile in text.splitlines():
+                    print(f"  {zeile}")
+    else:
+        print("\n(Tipp: Lege eine help.json an, um eigene Hilfetexte mitzuliefern.)")
+
+    input(f"\n{BLAU}(Enter zum Zurückkehren){ENDE}")
+
+
 def main():
     notizen, erster_start = load_notes(FILENAME)
     show_welcome_if_first_start(erster_start)
@@ -212,7 +252,7 @@ def main():
     while True:
         clear_screen()
         list_notes(notizen)
-        print(f"\n{BLAU}[+] Neu/Edit  [#] Lesen  [s] Suchen  [-] Löschen  [x] Exit{ENDE}")
+        print(f"\n{BLAU}[+] Neu/Edit  [#] Lesen  [s] Suchen  [-] Löschen  [?] Help  [x] Exit{ENDE}")
         auswahl = input(f"{BLAU}> {ENDE}").strip().lower()
 
         if auswahl == "x":
@@ -225,6 +265,8 @@ def main():
             delete_note(notizen, FILENAME)
         elif auswahl == "+":
             create_or_edit_note(notizen, FILENAME)
+        elif auswahl == "?":
+            show_help(HELP_FILENAME)
         elif auswahl == "":
             continue
         else:
