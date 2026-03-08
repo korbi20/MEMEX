@@ -9,7 +9,7 @@ ROT = "\033[5;38;5;160m"
 FETT = "\033[1m"
 MEMEX = BLAU + FETT
 ENDE = "\033[0m"
-VERSION = "1.7"
+VERSION = "1.8"
 
 
 def clear_screen():
@@ -89,20 +89,24 @@ def list_notes(notizen):
 
 def get_title_by_number(notizen, nr):
     if not nr.isdigit():
-        return None
+        return None, "Bitte gib eine gültige Zahl ein."
+
     index = int(nr) - 1
     titel_liste = sort_titles(notizen)
+    if not titel_liste:
+        return None, "Keine Notizen vorhanden."
+
     if 0 <= index < len(titel_liste):
-        return titel_liste[index]
-    return None
+        return titel_liste[index], None
+    return None, f"Ungültige Nummer. Bitte 1 bis {len(titel_liste)} verwenden."
 
 
 def read_note(notizen):
     nr = input(f"{BLAU}Nummer zum Lesen:{ENDE} ")
-    titel = get_title_by_number(notizen, nr)
+    titel, fehler = get_title_by_number(notizen, nr)
     if titel is None:
-        print("Ungültige Nummer!")
-        time.sleep(0.5)
+        print(fehler)
+        time.sleep(0.8)
         return
 
     data = notizen[titel]
@@ -121,9 +125,15 @@ def read_note(notizen):
 
 def delete_note(notizen, filename):
     nr = input(f"{BLAU}Nummer zum Löschen:{ENDE} ")
-    titel_zu_loeschen = get_title_by_number(notizen, nr)
+    titel_zu_loeschen, fehler = get_title_by_number(notizen, nr)
     if titel_zu_loeschen is None:
-        print("Ungültige Nummer!")
+        print(fehler)
+        time.sleep(0.8)
+        return
+
+    bestaetigung = input(f"{ROT}Wirklich löschen{ENDE} '{titel_zu_loeschen}'? [j/N]: ").strip().lower()
+    if bestaetigung not in ("j", "ja", "y", "yes"):
+        print("Löschen abgebrochen.")
         time.sleep(0.8)
         return
 
@@ -133,9 +143,29 @@ def delete_note(notizen, filename):
     time.sleep(0.8)
 
 
+def search_notes(notizen):
+    suchtext = input(f"{BLAU}Suchbegriff im Titel:{ENDE} ").strip()
+    if not suchtext:
+        print("Bitte einen Suchbegriff eingeben.")
+        time.sleep(0.8)
+        return
+
+    treffer = [titel for titel in sort_titles(notizen) if suchtext.lower() in titel.lower()]
+
+    print(f"\nTreffer für '{suchtext}':")
+    if not treffer:
+        print("(Keine passenden Notizen)")
+    else:
+        for i, titel in enumerate(treffer, 1):
+            print(f"{i}. {titel}")
+
+    input(f"\n{BLAU}(Enter zum Zurückkehren){ENDE}")
+
+
 def create_or_edit_note(notizen, filename):
-    titel = input(f"{BLAU}Titel:{ENDE} ")
+    titel = input(f"{BLAU}Titel:{ENDE} ").strip()
     if not titel:
+        print("Titel darf nicht leer sein.")
         time.sleep(0.8)
         return
 
@@ -182,13 +212,15 @@ def main():
     while True:
         clear_screen()
         list_notes(notizen)
-        print(f"\n{BLAU}[+] Neu/Edit  [#] Lesen  [-] Löschen  [x] Exit{ENDE}")
+        print(f"\n{BLAU}[+] Neu/Edit  [#] Lesen  [s] Suchen  [-] Löschen  [x] Exit{ENDE}")
         auswahl = input(f"{BLAU}> {ENDE}").strip().lower()
 
         if auswahl == "x":
             break
         if auswahl == "#":
             read_note(notizen)
+        elif auswahl == "s":
+            search_notes(notizen)
         elif auswahl == "-":
             delete_note(notizen, FILENAME)
         elif auswahl == "+":
