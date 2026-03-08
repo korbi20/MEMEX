@@ -25,14 +25,13 @@ python3 main.py
 > - Die Anwendung speichert automatisch nach jedem Erstellen, Bearbeiten oder Löschen.
 > - Wenn `notizen.json` noch nicht existiert, wird sie beim ersten Speichern angelegt.
 > - Notizen bleiben lokal im Projektordner (`notizen.json`).
-> - Optional kannst du eine `help.json` mit eigenen Hilfetexten mitliefern (Beispieldatei im Repo).
 
 ## Lizenz
 
 Dieses Repository steht unter der **MIT License**.
 
 - Das Projekt ist ein persönliches Showcase-/Inspiration-Projekt.
-- Nutzung, Forks und Anpassungen sind unter den MIT-Bedingungen erlaubt.
-- Die Software wird "as is" ohne Gewährleistung bereitgestellt.
+- Nutzung, Forks und Anpassungen sind unter den MIT-Bedingungen natürlich erlaubt.
+- Die Software wird `"as is"` ohne Gewährleistung bereitgestellt.
 
 Siehe [`LICENSE`](./LICENSE.md).
