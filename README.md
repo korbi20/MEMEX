@@ -62,10 +62,9 @@ Beispiel:
 ```
 
 > ## Hinweise
-
 > - Die Anwendung speichert automatisch nach jedem Erstellen, Bearbeiten oder Löschen.
-- Wenn `notizen.json` noch nicht existiert, wird sie beim ersten Speichern angelegt.
-- Notizen bleiben lokal im Projektordner (`notizen.json`).
+> - Wenn `notizen.json` noch nicht existiert, wird sie beim ersten Speichern angelegt.
+> - Notizen bleiben lokal im Projektordner (`notizen.json`).
 
 ## Lizenz
 
