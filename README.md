@@ -27,25 +27,6 @@ python3 main.py
 
 > Unter Windows ggf. `python main.py` verwenden.
 
-## Bedienung
-
-Nach dem Start siehst du eine Übersicht der vorhandenen Notizen und folgende Befehle:
-
-- `[+]` **Neu/Edit** – neue Notiz anlegen oder bestehende bearbeiten
-- `[#]` **Lesen** – Notiz über ihre Nummer anzeigen
-- `[-]` **Löschen** – Notiz über ihre Nummer entfernen
-- `[x]` **Exit** – Programm beenden
-- `[?]` **Help** – zeigt Hilfe + optionale Anleitungen aus `help.json`
-
-### Bearbeitungsmodus
-
-Wenn du einen vorhandenen Titel erneut auswählst, startet der Edit-Modus:
-
-- Leere Eingabe bei einer Zeile → bestehende Zeile bleibt erhalten
-- Text eingeben → Zeile wird ersetzt
-- Danach können zusätzliche Zeilen ergänzt werden
-- Mit einer leeren Zeile wird gespeichert
-
 ## Datenformat
 
 Alle Notizen werden in der Datei `notizen.json` gespeichert – als Key-Value-Paare:
